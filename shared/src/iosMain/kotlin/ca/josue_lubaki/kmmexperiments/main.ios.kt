@@ -1,7 +1,7 @@
 package ca.josue_lubaki.kmmexperiments
 
-import ca.josue_lubaki.kmmexperiments.App
-import moe.tlaster.precompose.PreComposeApplication
+import androidx.compose.ui.window.ComposeUIViewController
+import platform.UIKit.UIViewController
 
 /**
  * created by Josue Lubaki
@@ -9,4 +9,4 @@ import moe.tlaster.precompose.PreComposeApplication
  * version : 1.0.0
  */
 
-fun mainViewController() = PreComposeApplication(title = "") { App() }
+fun MainViewController() : UIViewController = ComposeUIViewController { App() }

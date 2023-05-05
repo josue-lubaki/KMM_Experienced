@@ -9,7 +9,6 @@ appcompat = "1.6.1"
 composeMaterialVersion = "1.4.0"
 compose-bom = "2023.05.00"
 activity-compose = "1.7.1"
-precompose = "1.4.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -27,9 +26,6 @@ ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-precompose = { group = "moe.tlaster", name = "precompose", version.ref = "precompose" }
-precompose-viewmodel = { group = "moe.tlaster", name = "precompose-viewmodel", version.ref = "precompose" }
-
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }
