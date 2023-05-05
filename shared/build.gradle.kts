@@ -42,6 +42,13 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 api(compose.materialIconsExtended)
+
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+
+                api(libs.koin.core)
             }
         }
         val commonTest by getting {
@@ -54,6 +61,9 @@ kotlin {
                 api(libs.activity.compose)
                 api(libs.appcompat)
                 api(libs.core.ktx)
+
+                implementation(libs.ktor.client.android)
+                api(libs.koin.android)
             }
         }
         val androidUnitTest by getting
