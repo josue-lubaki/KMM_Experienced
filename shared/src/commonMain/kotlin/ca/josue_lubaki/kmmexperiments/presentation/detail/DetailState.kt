@@ -1,9 +1,10 @@
-package ca.josue_lubaki.kmovies.android.detail
+package ca.josue_lubaki.kmmexperiments.presentation.detail
 
-import ca.josue_lubaki.kmovies.domain.model.Movie
+import ca.josue_lubaki.kmmexperiments.domain.model.Movie
 
-data class DetailState(
-    var loading : Boolean = false,
-    var movie : Movie? = null,
-    var errorMessage : String? = null,
-)
+sealed class DetailState {
+    object Idle: DetailState()
+    object Loading: DetailState()
+    data class Success(val movie: Movie): DetailState()
+    data class Error(val errorMessage: String?): DetailState()
+}

@@ -1,6 +1,5 @@
-package ca.josue_lubaki.kmovies.data.api
+package ca.josue_lubaki.kmmexperiments.data.api
 
-import ca.josue_lubaki.kmovies.data.model.MovieApiResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.HttpRequestBuilder

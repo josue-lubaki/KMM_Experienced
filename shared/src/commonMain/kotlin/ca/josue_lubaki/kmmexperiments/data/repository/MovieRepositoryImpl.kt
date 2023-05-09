@@ -1,9 +1,13 @@
-package ca.josue_lubaki.kmovies.data.repository
+package ca.josue_lubaki.kmmexperiments.data.repository
 
-import ca.josue_lubaki.kmovies.data.datasource.RemoteDataSource
-import ca.josue_lubaki.kmovies.data.mapper.toDomain
-import ca.josue_lubaki.kmovies.domain.model.Movie
-import ca.josue_lubaki.kmovies.domain.repository.MovieRepository
+import ca.josue_lubaki.kmmexperiments.data.datasource.RemoteDataSource
+import ca.josue_lubaki.kmmexperiments.data.datasourceimpl.RemoteDataSourceImpl
+import ca.josue_lubaki.kmmexperiments.data.mapper.toDomain
+import ca.josue_lubaki.kmmexperiments.domain.model.Movie
+import ca.josue_lubaki.kmmexperiments.domain.repository.MovieRepository
+import ca.josue_lubaki.kmmexperiments.util.network.DataState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 /**
  * created by Josue Lubaki
@@ -12,15 +16,27 @@ import ca.josue_lubaki.kmovies.domain.repository.MovieRepository
  */
 
 internal class MovieRepositoryImpl(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource = RemoteDataSourceImpl()
 ) : MovieRepository {
-    override suspend fun getMovies(page: Int): List<Movie> {
-        return remoteDataSource.getMovies(page).results.map {
-            it.toDomain()
+
+    override suspend fun getMovies(page: Int): Flow<DataState<List<Movie>>> = flow {
+        emit(DataState.Loading)
+        try {
+            val result = remoteDataSource.getMovies(page).results.map {
+                it.toDomain()
+            }
+            emit(DataState.Success(result))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
         }
     }
 
-    override suspend fun getMovie(id: Int): Movie {
-        return remoteDataSource.getMovie(id).toDomain()
+    override suspend fun getMovie(id: Int): DataState<Movie> {
+        return try {
+            val result = remoteDataSource.getMovie(id).toDomain()
+            DataState.Success(result)
+        } catch (e: Exception) {
+            DataState.Error(e)
+        }
     }
 }

@@ -1,4 +1,4 @@
-package ca.josue_lubaki.kmovies.android
+package ca.josue_lubaki.kmmexperiments
 
 
 import Detail
@@ -9,24 +9,24 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import ca.josue_lubaki.kmovies.android.common.MovieAppBar
-import ca.josue_lubaki.kmovies.android.detail.DetailScreen
-import ca.josue_lubaki.kmovies.android.detail.DetailViewModel
-import ca.josue_lubaki.kmovies.android.home.HomeScreen
-import ca.josue_lubaki.kmovies.android.home.HomeViewModel
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import ca.josue_lubaki.kmmexperiments.domain.usecases.GetMovieUseCase
+import ca.josue_lubaki.kmmexperiments.domain.usecases.GetMoviesUseCase
+import ca.josue_lubaki.kmmexperiments.presentation.common.MovieAppBar
+import ca.josue_lubaki.kmmexperiments.presentation.detail.DetailScreen
+import ca.josue_lubaki.kmmexperiments.presentation.detail.DetailViewModel
+import ca.josue_lubaki.kmmexperiments.presentation.home.HomeScreen
+import ca.josue_lubaki.kmmexperiments.presentation.home.HomeViewModel
+import moe.tlaster.precompose.navigation.NavHost
+import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.navigation.path
+import moe.tlaster.precompose.navigation.rememberNavigator
+import moe.tlaster.precompose.viewmodel.ViewModel
 import moviesDestination
-import org.koin.androidx.compose.koinViewModel
-import org.koin.core.parameter.parametersOf
 
 /**
  * created by Josue Lubaki
@@ -35,9 +35,10 @@ import org.koin.core.parameter.parametersOf
  */
 
 @Composable
-fun MovieSetup() {
-    val navController = rememberNavController()
-    val systemUiController = rememberSystemUiController()
+fun MovieSetup(
+    navigator: Navigator
+) {
+//    val systemUiController = rememberSystemUiController()
     val scaffoldState = rememberScaffoldState()
 
     val isSystemDark= isSystemInDarkTheme()
@@ -47,64 +48,53 @@ fun MovieSetup() {
         Color.Transparent
     }
 
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = statusBarColor,
-            darkIcons = !isSystemDark
-        )
-    }
-
-    val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentScreen = moviesDestination.find {
-        backStackEntry?.destination?.route == it.route ||
-                backStackEntry?.destination?.route == it.routeWithArgs
-    } ?: Home
+//    SideEffect {
+//        systemUiController.setStatusBarColor(
+//            color = statusBarColor,
+//            darkIcons = !isSystemDark
+//        )
+//    }
 
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             MovieAppBar(
-                currentScreen = currentScreen,
-                canNavigateBack = navController.previousBackStackEntry != null,
+                title = "Movies",
                 onNavigateBack = {
-                    navController.navigateUp()
+                    navigator.goBack()
                 }
             )
         }
     ) { innerPaddings ->
         NavHost(
-            navController = navController,
-            startDestination = Home.routeWithArgs,
+            navigator = navigator,
+            initialRoute = Home.route,
             modifier = Modifier.padding(innerPaddings)
         ){
-            composable(Home.routeWithArgs){
-                val homeViewModel : HomeViewModel = koinViewModel()
+            scene(route = Home.route) {
+                val homeViewModel = HomeViewModel()
                 HomeScreen(
-                    uiState = homeViewModel.uiState,
-                    loadNextMovies = {
-                        homeViewModel.loadMovies(forceReload = false)
-                    },
+                    viewModel = homeViewModel,
                     navigateToDetails = { movie ->
-                        navController.navigate("${Detail.route}/${movie.id}")
+                        navigator.navigate("${Detail.route}/${movie.id}")
                     }
                 )
             }
 
-            composable(Detail.routeWithArgs){
-                val movieId = it.arguments?.getString("movieId") ?: "0"
-                val detailViewModel : DetailViewModel = koinViewModel(
-                    parameters = {
-                        parametersOf(movieId.toInt())
-                    }
+            scene(route = "${Detail.route}/{movieId}") {
+                val movieId: Int = it.path<Int>("movieId") ?: 0
+                val detailViewModel = DetailViewModel()
+                DetailScreen(
+                    viewModel = detailViewModel,
+                    movieId = movieId
                 )
-                DetailScreen(uiState = detailViewModel.uiState)
             }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun MovieAppPreview() {
-    MovieSetup()
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun MovieAppPreview() {
+//    MovieSetup()
+//}

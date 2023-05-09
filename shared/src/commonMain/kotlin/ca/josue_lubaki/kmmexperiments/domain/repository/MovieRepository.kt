@@ -1,6 +1,8 @@
-package ca.josue_lubaki.kmovies.domain.repository
+package ca.josue_lubaki.kmmexperiments.domain.repository
 
-import ca.josue_lubaki.kmovies.domain.model.Movie
+import ca.josue_lubaki.kmmexperiments.domain.model.Movie
+import ca.josue_lubaki.kmmexperiments.util.network.DataState
+import kotlinx.coroutines.flow.Flow
 
 /**
  * created by Josue Lubaki
@@ -9,6 +11,6 @@ import ca.josue_lubaki.kmovies.domain.model.Movie
  */
 
 internal interface MovieRepository {
-    suspend fun getMovies(page: Int = 1) : List<Movie>
-    suspend fun getMovie(id: Int) : Movie
+    suspend fun getMovies(page: Int = 1) : Flow<DataState<List<Movie>>>
+    suspend fun getMovie(id: Int) : DataState<Movie>
 }

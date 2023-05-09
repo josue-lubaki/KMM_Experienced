@@ -1,6 +1,5 @@
-package ca.josue_lubaki.kmovies.data.model
+package ca.josue_lubaki.kmmexperiments.data.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable

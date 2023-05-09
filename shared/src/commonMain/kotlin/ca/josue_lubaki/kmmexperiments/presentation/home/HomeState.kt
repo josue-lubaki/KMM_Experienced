@@ -1,6 +1,6 @@
-package ca.josue_lubaki.kmovies.android.home
+package ca.josue_lubaki.kmmexperiments.presentation.home
 
-import ca.josue_lubaki.kmovies.domain.model.Movie
+import ca.josue_lubaki.kmmexperiments.domain.model.Movie
 
 data class HomeState(
     var loading: Boolean = false,

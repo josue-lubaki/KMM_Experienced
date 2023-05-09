@@ -43,12 +43,17 @@ kotlin {
                 implementation(compose.components.resources)
                 api(compose.materialIconsExtended)
 
-                implementation(libs.kotlinx.coroutines.core)
+//                implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
 
-                api(libs.koin.core)
+//                implementation(libs.koin.core)
+
+                api(libs.image.loader)
+                api(libs.precompose)
+                api(libs.precompose.viewmodel)
+
             }
         }
         val commonTest by getting {
@@ -64,6 +69,8 @@ kotlin {
 
                 implementation(libs.ktor.client.android)
                 api(libs.koin.android)
+
+                implementation(libs.koin.androidx.compose)
             }
         }
         val androidUnitTest by getting
@@ -71,13 +78,14 @@ kotlin {
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
-            dependencies {
-                implementation(libs.ktor.client.darwin)
-            }
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+                implementation(libs.ktor.client.ios)
+            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
@@ -96,6 +104,7 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     compileSdk = 33
     defaultConfig {

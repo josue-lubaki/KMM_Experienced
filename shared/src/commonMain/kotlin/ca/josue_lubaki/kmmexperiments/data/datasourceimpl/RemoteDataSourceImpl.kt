@@ -1,10 +1,13 @@
-package ca.josue_lubaki.kmovies.data.datasourceimpl
+package ca.josue_lubaki.kmmexperiments.data.datasourceimpl
 
-import ca.josue_lubaki.kmovies.data.api.MovieService
-import ca.josue_lubaki.kmovies.data.datasource.RemoteDataSource
-import ca.josue_lubaki.kmovies.data.model.MovieApiResponse
-import ca.josue_lubaki.kmovies.data.model.MovieRemote
-import ca.josue_lubaki.kmovies.util.Dispatcher
+import ca.josue_lubaki.kmmexperiments.data.api.MovieService
+import ca.josue_lubaki.kmmexperiments.data.datasource.RemoteDataSource
+import ca.josue_lubaki.kmmexperiments.data.model.MovieApiResponse
+import ca.josue_lubaki.kmmexperiments.data.model.MovieRemote
+import io.ktor.util.logging.Logger
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+//import ca.josue_lubaki.kmmexperiments.util.Dispatcher
 import kotlinx.coroutines.withContext
 
 /**
@@ -14,17 +17,17 @@ import kotlinx.coroutines.withContext
  */
 
 internal class RemoteDataSourceImpl(
-    private val movieService: MovieService,
-    private val dispatcher: Dispatcher
-) : RemoteDataSource  {
+    private val movieService: MovieService = MovieService()
+) : RemoteDataSource {
+
     override suspend fun getMovie(id: Int): MovieRemote {
-        return withContext(dispatcher.io) {
+        return withContext(Dispatchers.Main) {
             movieService.getMovie(id)
         }
     }
 
     override suspend fun getMovies(page: Int): MovieApiResponse {
-        return withContext(dispatcher.io) {
+        return withContext(Dispatchers.Main) {
             movieService.getMovies(page)
         }
     }
