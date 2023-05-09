@@ -1,7 +1,7 @@
-package ca.josue_lubaki.kmovies.data.mapper
+package ca.josue_lubaki.kmmexperiments.data.mapper
 
-import ca.josue_lubaki.kmovies.data.model.MovieRemote
-import ca.josue_lubaki.kmovies.domain.model.Movie
+import ca.josue_lubaki.kmmexperiments.data.model.MovieRemote
+import ca.josue_lubaki.kmmexperiments.domain.model.Movie
 
 /**
  * created by Josue Lubaki

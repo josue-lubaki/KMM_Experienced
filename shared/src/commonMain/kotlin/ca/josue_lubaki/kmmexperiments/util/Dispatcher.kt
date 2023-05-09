@@ -1,4 +1,4 @@
-package ca.josue_lubaki.kmovies.util
+package ca.josue_lubaki.kmmexperiments.util
 
 import kotlinx.coroutines.CoroutineDispatcher
 
@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineDispatcher
  * version : 1.0.0
  */
 
-internal interface Dispatcher {
-    val io : CoroutineDispatcher
-}
-internal expect fun provideDispatcher() : Dispatcher
+//internal interface Dispatcher {
+//    val io : CoroutineDispatcher
+//}
+//internal expect fun provideDispatcher() : Dispatcher

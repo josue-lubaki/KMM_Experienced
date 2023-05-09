@@ -1,4 +1,4 @@
-package ca.josue_lubaki.kmovies.android.common
+package ca.josue_lubaki.kmmexperiments.presentation.common
 
 import Destination
 import Home
@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,7 +24,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 /**
@@ -35,8 +36,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MovieAppBar(
     modifier : Modifier = Modifier,
-    canNavigateBack : Boolean,
-    currentScreen : Destination,
+    background : Color = Color.DarkGray,
+    title : String,
     onNavigateBack : () -> Unit
 ) {
 
@@ -44,8 +45,8 @@ fun MovieAppBar(
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp),
-        elevation = 4.dp,
-        color = MaterialTheme.colors.primary
+        elevation = 1.dp,
+        color = background
     ){
 
         Row(
@@ -55,7 +56,7 @@ fun MovieAppBar(
         ) {
 
             AnimatedVisibility(
-                visible = canNavigateBack,
+                visible = true,
                 enter = fadeIn() + slideInHorizontally(),
                 exit = fadeOut() + slideOutHorizontally()
             ) {
@@ -63,28 +64,28 @@ fun MovieAppBar(
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "Back",
-                        tint = MaterialTheme.colors.onBackground,
+                        tint = Color.White,
                     )
                 }
                 Spacer(modifier = Modifier.width(24.dp))
             }
 
             Text(
-                text = currentScreen.title,
+                text = title,
                 style = MaterialTheme.typography.h6,
                 modifier = Modifier.padding(12.dp),
-                color = MaterialTheme.colors.onSurface
+                color = Color.White
             )
         }
     }
 }
 
-@Preview
-@Composable
-fun MovieAppBarPreview() {
-    MovieAppBar(
-        canNavigateBack = false,
-        currentScreen = Home,
-        onNavigateBack = {}
-    )
-}
+//@Preview
+//@Composable
+//fun MovieAppBarPreview() {
+//    MovieAppBar(
+//        canNavigateBack = false,
+//        currentScreen = Home,
+//        onNavigateBack = {}
+//    )
+//}

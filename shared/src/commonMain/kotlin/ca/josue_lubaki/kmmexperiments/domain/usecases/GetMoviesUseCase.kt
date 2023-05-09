@@ -1,8 +1,10 @@
-package ca.josue_lubaki.kmovies.domain.usecases
+package ca.josue_lubaki.kmmexperiments.domain.usecases
 
-import ca.josue_lubaki.kmovies.domain.repository.MovieRepository
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import ca.josue_lubaki.kmmexperiments.data.repository.MovieRepositoryImpl
+import ca.josue_lubaki.kmmexperiments.domain.model.Movie
+import ca.josue_lubaki.kmmexperiments.domain.repository.MovieRepository
+import ca.josue_lubaki.kmmexperiments.util.network.DataState
+import kotlinx.coroutines.flow.Flow
 
 /**
  * created by Josue Lubaki
@@ -10,9 +12,9 @@ import org.koin.core.component.inject
  * version : 1.0.0
  */
 
-class GetMoviesUseCase : KoinComponent {
-    private val movieRepository by inject<MovieRepository>()
+class GetMoviesUseCase {
+    private val movieRepositoryImpl : MovieRepository = MovieRepositoryImpl()
 
     @Throws(Exception::class)
-    suspend operator fun invoke(page: Int) = movieRepository.getMovies(page)
+    suspend operator fun invoke(page: Int) : Flow<DataState<List<Movie>>> = movieRepositoryImpl.getMovies(page)
 }

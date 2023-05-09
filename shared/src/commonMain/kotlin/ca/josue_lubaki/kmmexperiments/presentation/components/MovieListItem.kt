@@ -1,4 +1,4 @@
-package ca.josue_lubaki.kmovies.android.components
+package ca.josue_lubaki.kmmexperiments.presentation.components
 
 
 import androidx.compose.foundation.Image
@@ -22,14 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ca.josue_lubaki.kmovies.android.R
-import ca.josue_lubaki.kmovies.domain.model.Movie
-import coil.compose.AsyncImage
+import ca.josue_lubaki.kmmexperiments.domain.model.Movie
+import com.seiko.imageloader.rememberAsyncImagePainter
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
 /**
  * created by Josue Lubaki
@@ -37,6 +36,7 @@ import coil.compose.AsyncImage
  * version : 1.0.0
  */
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun MovieListItem(
     modifier: Modifier = Modifier,
@@ -55,8 +55,11 @@ fun MovieListItem(
                 modifier = Modifier.weight(1f),
                 contentAlignment = Alignment.Center
             ){
-                AsyncImage(
-                    model = movie.posterImage,
+                Image(
+                    painter = rememberAsyncImagePainter(
+                        url = movie.posterImage,
+                        contentScale = ContentScale.Crop,
+                    ),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -76,7 +79,7 @@ fun MovieListItem(
                     shape = CircleShape,
                 ){
                     Image(
-                        painter = painterResource(id = R.drawable.play_button),
+                        painter = painterResource("play_button.xml"),
                         contentDescription = null,
                         modifier = Modifier
                             .padding(12.dp)
@@ -108,18 +111,18 @@ fun MovieListItem(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun MovieListItemPreview() {
-    MovieListItem(
-        modifier = Modifier,
-        movie = Movie(
-            id = 1,
-            title = "Tom & Jerry",
-            overview = "Tom the cat and Jerry the mouse get kicked out of their home and relocate to a fancy New York hotel, where a scrappy employee named Kayla will lose her job if she can’t evict Jerry before a high-class wedding at the hotel. Her solution? Hiring Tom to get rid of the pesky mouse.",
-            posterImage = "https://image.tmdb.org/t/p/w500/6KErczPBROQty7QoIsaa6wJYXZi.jpg",
-            releaseDate = "2023-04-30",
-        ),
-        onClick = { }
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun MovieListItemPreview() {
+//    MovieListItem(
+//        modifier = Modifier,
+//        movie = Movie(
+//            id = 1,
+//            title = "Tom & Jerry",
+//            overview = "Tom the cat and Jerry the mouse get kicked out of their home and relocate to a fancy New York hotel, where a scrappy employee named Kayla will lose her job if she can’t evict Jerry before a high-class wedding at the hotel. Her solution? Hiring Tom to get rid of the pesky mouse.",
+//            posterImage = "https://image.tmdb.org/t/p/w500/6KErczPBROQty7QoIsaa6wJYXZi.jpg",
+//            releaseDate = "2023-04-30",
+//        ),
+//        onClick = { }
+//    )
+//}

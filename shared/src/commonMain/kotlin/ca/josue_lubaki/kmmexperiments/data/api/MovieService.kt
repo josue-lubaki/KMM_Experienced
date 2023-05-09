@@ -1,7 +1,7 @@
-package ca.josue_lubaki.kmovies.data.api
+package ca.josue_lubaki.kmmexperiments.data.api
 
-import ca.josue_lubaki.kmovies.data.model.MovieApiResponse
-import ca.josue_lubaki.kmovies.data.model.MovieRemote
+import ca.josue_lubaki.kmmexperiments.data.model.MovieApiResponse
+import ca.josue_lubaki.kmmexperiments.data.model.MovieRemote
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter

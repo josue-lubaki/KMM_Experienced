@@ -1,11 +1,11 @@
-package ca.josue_lubaki.kmovies.android.detail
+package ca.josue_lubaki.kmmexperiments.presentation.detail
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,18 +20,23 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ca.josue_lubaki.kmovies.android.R
+import ca.josue_lubaki.kmmexperiments.domain.model.Movie
+import ca.josue_lubaki.kmmexperiments.presentation.home.HomeViewModel
 import ca.josue_lubaki.kmovies.android.ui.theme.Colors
-import ca.josue_lubaki.kmovies.domain.model.Movie
-import coil.compose.AsyncImage
+import com.seiko.imageloader.rememberAsyncImagePainter
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
 /**
  * created by Josue Lubaki
@@ -41,34 +46,47 @@ import coil.compose.AsyncImage
 
 @Composable
 fun DetailScreen(
+    viewModel : DetailViewModel,
     modifier: Modifier = Modifier,
-    uiState : DetailState
+    movieId : Int
 ) {
+
+    val state by viewModel.state.collectAsState()
+    val movieDetail = remember { viewModel.movieDetails }
+
+    LaunchedEffect(key1 = movieId) {
+        viewModel.loadMovie(movieId)
+    }
+
     Box(
         contentAlignment = Alignment.Center,
     ){
-        uiState.movie?.let { movie ->
-            DetailContent(
-                movie = movie,
-                modifier = modifier,
-            )
-
-            if(uiState.loading){
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center,
-                ){
-                    CircularProgressIndicator(
-                        color = Colors.Red
-                    )
-                }
+        movieDetail.value.let { movie ->
+            if (movie != null) {
+                DetailContent(
+                    movie = movie,
+                    modifier = modifier,
+                )
             }
+
         }
 
+        if(state is DetailState.Loading){
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+            ){
+                CircularProgressIndicator(
+                    color = Colors.Red
+                )
+            }
+        }
     }
+
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun DetailContent(
     movie: Movie,
@@ -80,8 +98,11 @@ fun DetailContent(
             .background(color = MaterialTheme.colors.background)
     ) {
 
-        AsyncImage(
-            model = movie.posterImage,
+        Image(
+            painter = rememberAsyncImagePainter(
+                url = movie.posterImage,
+                contentScale = ContentScale.Crop,
+            ),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -116,7 +137,7 @@ fun DetailContent(
                 onClick = { /*TODO*/ }
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.play_button),
+                    painter = painterResource("play_button.xml"),
                     contentDescription = null,
                     tint = Color.White,
                 )
@@ -144,19 +165,19 @@ fun DetailContent(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun DetailScreenPreview() {
-    DetailScreen(
-        modifier = Modifier.fillMaxSize(),
-        uiState = DetailState(
-            movie = Movie(
-                id = 1,
-                title = "Movie Title",
-                posterImage = "https://image.tmdb.org/t/p/w780/8/8b/8b8b8b8b8.jpg",
-                releaseDate = "1980-01-01",
-                overview = "Movie Overview",
-            )
-        )
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun DetailScreenPreview() {
+//    DetailScreen(
+//        modifier = Modifier.fillMaxSize(),
+//        uiState = DetailState(
+//            movie = Movie(
+//                id = 1,
+//                title = "Movie Title",
+//                posterImage = "https://image.tmdb.org/t/p/w780/8/8b/8b8b8b8b8.jpg",
+//                releaseDate = "1980-01-01",
+//                overview = "Movie Overview",
+//            )
+//        )
+//    )
+//}

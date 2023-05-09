@@ -1,10 +1,7 @@
-package ca.josue_lubaki.kmovies.data.datasource
+package ca.josue_lubaki.kmmexperiments.data.datasource
 
-import ca.josue_lubaki.kmovies.data.api.MovieService
-import ca.josue_lubaki.kmovies.data.model.MovieApiResponse
-import ca.josue_lubaki.kmovies.data.model.MovieRemote
-import ca.josue_lubaki.kmovies.util.Dispatcher
-import kotlinx.coroutines.withContext
+import ca.josue_lubaki.kmmexperiments.data.model.MovieApiResponse
+import ca.josue_lubaki.kmmexperiments.data.model.MovieRemote
 
 /**
  * created by Josue Lubaki

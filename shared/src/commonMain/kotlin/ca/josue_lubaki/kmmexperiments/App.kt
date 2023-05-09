@@ -1,9 +1,11 @@
 package ca.josue_lubaki.kmmexperiments
 
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import moe.tlaster.precompose.navigation.rememberNavigator
 
 /**
  * created by Josue Lubaki
@@ -13,10 +15,13 @@ import androidx.compose.runtime.Composable
 
 @Composable
 internal fun App() {
+    val navigator = rememberNavigator()
     MaterialTheme {
-        Button(onClick = { /*TODO*/ }
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
         ) {
-            Text("Hello World!")
+            MovieSetup(navigator)
         }
     }
 }

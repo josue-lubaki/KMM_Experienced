@@ -1,5 +1,5 @@
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
+//import androidx.navigation.NavType
+//import androidx.navigation.navArgument
 
 interface Destination {
     val title: String
@@ -28,9 +28,16 @@ object Detail: Destination{
     override val routeWithArgs: String
         get() = "$route/{movieId}"
 
-    val arguments = listOf(
-        navArgument(name = "movieId"){type = NavType.IntType}
-    )
+//    val arguments = listOf(
+//        navArgument(name = "movieId"){type = NavType.IntType}
+//    )
+
+//    scene(route = NavigationScreen.MovieDetail.route.plus(NavigationScreen.MovieDetail.objectPath)) { backStackEntry ->
+//        val id: Int? = backStackEntry.path<Int>(NavigationScreen.MovieDetail.objectName)
+//        id?.let {
+//            MovieDetail(navigator, it)
+//        }
+//    }
 }
 
 val moviesDestination = listOf(Home, Detail)

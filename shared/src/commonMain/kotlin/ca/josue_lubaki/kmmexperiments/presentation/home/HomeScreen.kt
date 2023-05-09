@@ -1,4 +1,4 @@
-package ca.josue_lubaki.kmovies.android.home
+package ca.josue_lubaki.kmmexperiments.presentation.home
 
 
 import androidx.compose.foundation.background
@@ -23,12 +23,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ca.josue_lubaki.kmovies.android.components.MovieListItem
+import ca.josue_lubaki.kmmexperiments.domain.model.Movie
+import ca.josue_lubaki.kmmexperiments.presentation.components.MovieListItem
 import ca.josue_lubaki.kmovies.android.ui.theme.Colors
-import ca.josue_lubaki.kmovies.domain.model.Movie
 
 /**
  * created by Josue Lubaki
@@ -39,15 +37,23 @@ import ca.josue_lubaki.kmovies.domain.model.Movie
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(
+    viewModel : HomeViewModel,
     modifier: Modifier = Modifier,
-    uiState: HomeState,
-    loadNextMovies: (Boolean) -> Unit,
     navigateToDetails: (Movie) -> Unit
 ) {
 
+    val uiState = viewModel.uiState
+    val loadNextMovies = {
+        viewModel.loadMovies(forceReload = false)
+    }
+
+    LaunchedEffect(true) {
+        viewModel.loadMovies(false)
+    }
+
     val pullRefreshState = rememberPullRefreshState(
         refreshing = uiState.refreshing,
-        onRefresh = { loadNextMovies(true) }
+        onRefresh = { loadNextMovies() }
     )
 
     Box(
@@ -79,7 +85,7 @@ fun HomeScreen(
                     && !uiState.loadFinished
                 ) {
                     LaunchedEffect(Unit) {
-                        loadNextMovies(false)
+                        loadNextMovies()
                     }
                 }
             }
@@ -109,13 +115,13 @@ fun HomeScreen(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun HomeScreenPreview() {
-    HomeScreen(
-        modifier = Modifier,
-        uiState = HomeState(),
-        loadNextMovies = { true },
-        navigateToDetails = { }
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun HomeScreenPreview() {
+//    HomeScreen(
+//        modifier = Modifier,
+//        uiState = HomeState(),
+//        loadNextMovies = { true },
+//        navigateToDetails = { }
+//    )
+//}
