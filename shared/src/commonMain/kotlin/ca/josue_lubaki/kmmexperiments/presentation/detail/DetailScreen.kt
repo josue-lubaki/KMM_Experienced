@@ -167,20 +167,3 @@ fun DetailContent(
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//private fun DetailScreenPreview() {
-//    DetailScreen(
-//        modifier = Modifier.fillMaxSize(),
-//        uiState = DetailState(
-//            movie = Movie(
-//                id = 1,
-//                title = "Movie Title",
-//                posterImage = "https://image.tmdb.org/t/p/w780/8/8b/8b8b8b8b8.jpg",
-//                releaseDate = "1980-01-01",
-//                overview = "Movie Overview",
-//            )
-//        )
-//    )
-//}

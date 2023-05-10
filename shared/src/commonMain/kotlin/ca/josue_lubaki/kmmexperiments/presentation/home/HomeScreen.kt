@@ -114,14 +114,3 @@ fun HomeScreen(
         )
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//private fun HomeScreenPreview() {
-//    HomeScreen(
-//        modifier = Modifier,
-//        uiState = HomeState(),
-//        loadNextMovies = { true },
-//        navigateToDetails = { }
-//    )
-//}

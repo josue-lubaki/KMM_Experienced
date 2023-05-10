@@ -79,13 +79,3 @@ fun MovieAppBar(
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun MovieAppBarPreview() {
-//    MovieAppBar(
-//        canNavigateBack = false,
-//        currentScreen = Home,
-//        onNavigateBack = {}
-//    )
-//}
