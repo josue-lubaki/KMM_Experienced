@@ -116,19 +116,3 @@ fun MovieListItem(
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//private fun MovieListItemPreview() {
-//    MovieListItem(
-//        modifier = Modifier,
-//        movie = Movie(
-//            id = 1,
-//            title = "Tom & Jerry",
-//            overview = "Tom the cat and Jerry the mouse get kicked out of their home and relocate to a fancy New York hotel, where a scrappy employee named Kayla will lose her job if she can’t evict Jerry before a high-class wedding at the hotel. Her solution? Hiring Tom to get rid of the pesky mouse.",
-//            posterImage = "https://image.tmdb.org/t/p/w500/6KErczPBROQty7QoIsaa6wJYXZi.jpg",
-//            releaseDate = "2023-04-30",
-//        ),
-//        onClick = { }
-//    )
-//}

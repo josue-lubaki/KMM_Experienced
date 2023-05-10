@@ -6,25 +6,14 @@ import Detail
 import Home
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import ca.josue_lubaki.kmmexperiments.presentation.common.MovieAppBar
-import ca.josue_lubaki.kmmexperiments.presentation.detail.DetailScreen
-import ca.josue_lubaki.kmmexperiments.presentation.detail.DetailViewModel
-import ca.josue_lubaki.kmmexperiments.presentation.home.HomeScreen
-import ca.josue_lubaki.kmmexperiments.presentation.home.HomeViewModel
-import kotlinx.coroutines.flow.collectLatest
-import moe.tlaster.precompose.navigation.NavHost
+import ca.josue_lubaki.kmmexperiments.presentation.navigation.NavGraph
+import ca.josue_lubaki.kmmexperiments.presentation.navigation.currentRoute
 import moe.tlaster.precompose.navigation.Navigator
-import moe.tlaster.precompose.navigation.PopUpTo
-import moe.tlaster.precompose.navigation.path
-import moe.tlaster.precompose.navigation.route.Route
 
 /**
  * created by Josue Lubaki
@@ -33,32 +22,8 @@ import moe.tlaster.precompose.navigation.route.Route
  */
 
 @Composable
-fun MovieSetup(
-    navigator: Navigator
-) {
-//    val systemUiController = rememberSystemUiController()
+fun MovieSetup(navigator: Navigator) {
     val scaffoldState = rememberScaffoldState()
-
-    val isSystemDark= isSystemInDarkTheme()
-    val statusBarColor = if (isSystemDark) {
-        MaterialTheme.colors.primaryVariant
-    } else {
-        Color.Transparent
-    }
-
-//    SideEffect {
-//        systemUiController.setStatusBarColor(
-//            color = statusBarColor,
-//            darkIcons = !isSystemDark
-//        )
-//    }
-
-    val currentRoute = mutableStateOf<String?>(Home.route)
-    LaunchedEffect(currentRoute) {
-        navigator.currentEntry.collectLatest {
-            currentRoute.value = it?.path
-        }
-    }
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -68,39 +33,13 @@ fun MovieSetup(
                 onNavigateBack = {
                     navigator.goBack()
                 },
-                iconVisible = currentRoute.value?.let { it != Home.route } ?: false
+                iconVisible = navigator.currentRoute()?.route != Home.route
             )
         }
     ) { innerPaddings ->
-        NavHost(
+        NavGraph(
             navigator = navigator,
-            initialRoute = Home.route,
             modifier = Modifier.padding(innerPaddings)
-        ){
-            scene(route = Home.route) {
-                val homeViewModel = HomeViewModel()
-                HomeScreen(
-                    viewModel = homeViewModel,
-                    navigateToDetails = { movie ->
-                        navigator.navigate("${Detail.route}/${movie.id}")
-                    }
-                )
-            }
-
-            scene(route = "${Detail.route}/{movieId}") {
-                val movieId: Int = it.path<Int>("movieId") ?: 0
-                val detailViewModel = DetailViewModel()
-                DetailScreen(
-                    viewModel = detailViewModel,
-                    movieId = movieId
-                )
-            }
-        }
+        )
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//private fun MovieAppPreview() {
-//    MovieSetup()
-//}
