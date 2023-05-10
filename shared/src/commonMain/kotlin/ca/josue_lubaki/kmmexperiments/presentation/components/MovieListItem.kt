@@ -2,6 +2,7 @@ package ca.josue_lubaki.kmmexperiments.presentation.components
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,7 +51,10 @@ fun MovieListItem(
             .clickable { onClick() },
         shape = RoundedCornerShape(8.dp),
     ){
-        Column {
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colors.onBackground.copy(alpha = 0.85f))
+        ) {
             Box(
                 modifier = Modifier.weight(1f),
                 contentAlignment = Alignment.Center
@@ -97,6 +101,7 @@ fun MovieListItem(
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colors.background
                 )
 
                 Spacer(modifier = Modifier.height(4.dp))
@@ -104,6 +109,7 @@ fun MovieListItem(
                 Text(
                     text = movie.releaseDate,
                     style = MaterialTheme.typography.caption,
+                    color = MaterialTheme.colors.background
                 )
             }
 
