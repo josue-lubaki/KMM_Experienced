@@ -1,6 +1,5 @@
 package ca.josue_lubaki.kmmexperiments.presentation.common
 
-import Destination
 import Home
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -35,10 +34,11 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MovieAppBar(
-    modifier : Modifier = Modifier,
-    background : Color = Color.DarkGray,
-    title : String,
-    onNavigateBack : () -> Unit
+    modifier: Modifier = Modifier,
+    background: Color = MaterialTheme.colors.onBackground,
+    title: String,
+    iconVisible: Boolean = true,
+    onNavigateBack: () -> Unit
 ) {
 
     Surface(
@@ -56,7 +56,7 @@ fun MovieAppBar(
         ) {
 
             AnimatedVisibility(
-                visible = true,
+                visible = iconVisible,
                 enter = fadeIn() + slideInHorizontally(),
                 exit = fadeOut() + slideOutHorizontally()
             ) {

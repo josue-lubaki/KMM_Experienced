@@ -95,7 +95,7 @@ fun DetailContent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colors.background)
+            .background(color = MaterialTheme.colors.onBackground)
     ) {
 
         Image(
@@ -120,7 +120,8 @@ fun DetailContent(
                 text = movie.title,
                 style = MaterialTheme.typography.h5,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colors.background
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -153,6 +154,7 @@ fun DetailContent(
             Text(
                 text = "Released in ${movie.releaseDate}".uppercase(),
                 style = MaterialTheme.typography.overline,
+                color = MaterialTheme.colors.background
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -160,6 +162,7 @@ fun DetailContent(
             Text(
                 text = movie.overview,
                 style = MaterialTheme.typography.body2,
+                color = MaterialTheme.colors.background
             )
         }
     }

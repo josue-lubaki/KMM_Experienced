@@ -47,8 +47,8 @@ fun HomeScreen(
         viewModel.loadMovies(forceReload = false)
     }
 
-    LaunchedEffect(true) {
-        viewModel.loadMovies(false)
+    LaunchedEffect(Unit) {
+        viewModel.loadMovies(forceReload = false)
     }
 
     val pullRefreshState = rememberPullRefreshState(
@@ -59,7 +59,7 @@ fun HomeScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colors.background)
+            .background(color = MaterialTheme.colors.onBackground)
             .pullRefresh(state = pullRefreshState)
     ) {
 

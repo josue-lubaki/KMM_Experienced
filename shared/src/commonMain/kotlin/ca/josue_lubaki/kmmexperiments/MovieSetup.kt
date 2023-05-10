@@ -1,6 +1,7 @@
 package ca.josue_lubaki.kmmexperiments
 
 
+import Destination
 import Detail
 import Home
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -10,23 +11,20 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import ca.josue_lubaki.kmmexperiments.domain.usecases.GetMovieUseCase
-import ca.josue_lubaki.kmmexperiments.domain.usecases.GetMoviesUseCase
 import ca.josue_lubaki.kmmexperiments.presentation.common.MovieAppBar
 import ca.josue_lubaki.kmmexperiments.presentation.detail.DetailScreen
 import ca.josue_lubaki.kmmexperiments.presentation.detail.DetailViewModel
 import ca.josue_lubaki.kmmexperiments.presentation.home.HomeScreen
 import ca.josue_lubaki.kmmexperiments.presentation.home.HomeViewModel
+import kotlinx.coroutines.flow.collectLatest
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.navigation.PopUpTo
 import moe.tlaster.precompose.navigation.path
-import moe.tlaster.precompose.navigation.rememberNavigator
-import moe.tlaster.precompose.viewmodel.ViewModel
-import moviesDestination
+import moe.tlaster.precompose.navigation.route.Route
 
 /**
  * created by Josue Lubaki
@@ -55,14 +53,22 @@ fun MovieSetup(
 //        )
 //    }
 
+    val currentRoute = mutableStateOf<String?>(Home.route)
+    LaunchedEffect(currentRoute) {
+        navigator.currentEntry.collectLatest {
+            currentRoute.value = it?.path
+        }
+    }
+
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             MovieAppBar(
-                title = "Movies",
+                title = Home.title,
                 onNavigateBack = {
                     navigator.goBack()
-                }
+                },
+                iconVisible = currentRoute.value?.let { it != Home.route } ?: false
             )
         }
     ) { innerPaddings ->
