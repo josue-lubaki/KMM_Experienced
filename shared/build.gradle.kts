@@ -1,3 +1,7 @@
+import java.util.Properties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("multiplatform")
@@ -5,6 +9,7 @@ plugins {
     kotlin("plugin.serialization")
     alias(libs.plugins.library)
     alias(libs.plugins.compose)
+    alias(libs.plugins.konfig)
 }
 
 kotlin {
@@ -99,6 +104,21 @@ kotlin {
     }
 }
 
+buildkonfig {
+    packageName = "ca.josue_lubaki.kmmexperiments"
+
+    val properties = Properties()
+
+    val localPropertiesFile = project.rootProject.file("local.properties")
+    if(localPropertiesFile.exists()){
+        localPropertiesFile.inputStream().use { properties.load(it) }
+    }
+
+    defaultConfigs {
+        buildConfigField(STRING, "API_KEY", properties.getProperty("API_KEY"))
+    }
+}
+
 android {
     namespace = "ca.josue_lubaki.kmmexperiments"
 
@@ -116,6 +136,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain{
+            (this as JavaToolchainSpec).apply {
+                languageVersion.set(JavaLanguageVersion.of(17))
+            }
+        }
     }
 }

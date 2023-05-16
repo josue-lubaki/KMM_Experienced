@@ -11,6 +11,7 @@ composeMaterialVersion = "1.4.0"
 compose-bom = "2023.05.00"
 activity-compose = "1.7.1"
 runtimeVersion = "1.2.1"
+konfigVersion = "0.13.3"
 
 imageLoaderVersion = "1.4.0"
 
@@ -64,6 +65,7 @@ com-android-application = { id = "com.android.application", version.ref = "com-a
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 library = { id = "com.android.library", version.ref = "com-android-application" }
 compose = { id = "org.jetbrains.compose", version.ref = "composeMaterialVersion" }
+konfig = { id = "com.codingfeline.buildkonfig", version.ref = "konfigVersion" }
 
 [bundles]
 

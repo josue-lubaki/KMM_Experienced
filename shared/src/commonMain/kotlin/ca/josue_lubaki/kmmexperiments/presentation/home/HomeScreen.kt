@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -39,7 +41,7 @@ import ca.josue_lubaki.kmovies.android.ui.theme.Colors
 fun HomeScreen(
     viewModel : HomeViewModel,
     modifier: Modifier = Modifier,
-    navigateToDetails: (Movie) -> Unit
+    navigateToDetails: (Movie) -> Unit,
 ) {
 
     val uiState = viewModel.uiState
@@ -56,6 +58,8 @@ fun HomeScreen(
         onRefresh = { loadNextMovies() }
     )
 
+    val lazyState = rememberLazyGridState()
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -65,6 +69,7 @@ fun HomeScreen(
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
+            state = lazyState,
             contentPadding = PaddingValues(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
