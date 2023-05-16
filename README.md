@@ -7,9 +7,9 @@ Kotlin Multiplatform with jetpack compose for iOS (alpha version)
     <th> </th>
     <th align="center">iOS</th>
     <tr>
-        <td align="center"><img src="https://videoapi-muybridge.vimeocdn.com/animated-thumbnails/image/1a7d8332-3df2-4882-b86c-e294c127cd0f.gif?ClientID=vimeo-core-prod&Date=1684260632&Signature=05ce2fc996314a77269ddd5735aa90e17f3e4b0f" width=360 height=760 /></td>
+        <td align="center"><img src="https://videoapi-muybridge.vimeocdn.com/animated-thumbnails/image/4130c216-edff-4c81-aa86-881981067d95.gif?ClientID=vimeo-core-prod&Date=1684267628&Signature=c3157bad0482c1fe4bffc0948c8e2c4acc6ee4cd" width=360 height=760 /></td>
         <td> </td>
-        <td align="center"><img src="https://videoapi-muybridge.vimeocdn.com/animated-thumbnails/image/4179f8ac-99be-4874-9722-555e5d682625.gif?ClientID=vimeo-core-prod&Date=1684260603&Signature=d5c7498c703a92dd1fddc17437db0b833e4d156b" width=360 height=760 /></td>
+        <td align="center"><img src="https://videoapi-muybridge.vimeocdn.com/animated-thumbnails/image/b6a5f72e-07ff-4a04-9b3b-76c29484b1c2.gif?ClientID=vimeo-core-prod&Date=1684267741&Signature=a0b53c5cc9aa87a34713627be878be0ea23a9bdc" width=360 height=760 /></td>
     </tr>
 </table>
 
@@ -23,16 +23,16 @@ Kotlin Multiplatform with jetpack compose for iOS (alpha version)
         <th align="center" colspan="2"> List of Movies </th>
     </tr>
     <tr>
-        <td align="center"><img src="https://i.imgur.com/jdvvP5f.jpg" width=360 height=720></td>
-        <td align="center"><img src="https://i.imgur.com/KdXCspN.png" width=360 height=720></td>
+        <td align="center"><img src="https://i.imgur.com/B2Oo9jt.jpg" width=360 height=720></td>
+        <td align="center"><img src="https://i.imgur.com/spJzbEj.png" width=360 height=720></td>
     </tr>
     <tr> </tr>
     <tr>
         <th align="center" colspan="2"> Detail Movie </th>
     </tr>
     <tr>
-        <td align="center"><img src="https://i.imgur.com/FTjPt32.png" width=360 height=720></td>
-        <td align="center"><img src="https://i.imgur.com/CK4AvRd.png" width=360 height=720></td>
+        <td align="center"><img src="https://i.imgur.com/osvSA5z.png" width=360 height=720></td>
+        <td align="center"><img src="https://i.imgur.com/0ChD4PC.png" width=360 height=720></td>
     </tr>
 </table>
 
