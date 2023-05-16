@@ -1,6 +1,7 @@
 package ca.josue_lubaki.kmmexperiments.presentation.navigation
 
 import Detail
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -35,7 +36,7 @@ fun NavGraph(
                 viewModel = homeViewModel,
                 navigateToDetails = { movie ->
                     navigator.navigate("${Detail.route}/${movie.id}")
-                }
+                },
             )
         }
 

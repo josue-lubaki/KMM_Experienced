@@ -12,7 +12,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
@@ -101,13 +104,12 @@ fun DetailContent(
         Image(
             painter = rememberAsyncImagePainter(
                 url = movie.posterImage,
-                contentScale = ContentScale.Crop,
             ),
             contentDescription = null,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(320.dp)
+                .requiredHeight(440.dp)
         )
 
         Column(
@@ -115,6 +117,7 @@ fun DetailContent(
                 .fillMaxWidth()
                 .weight(1f)
                 .padding(20.dp)
+                .verticalScroll(rememberScrollState())
         ){
             Text (
                 text = movie.title,

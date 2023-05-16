@@ -8,12 +8,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -27,6 +31,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ca.josue_lubaki.kmmexperiments.domain.model.Movie
+import com.seiko.imageloader.AsyncImagePainter
+import com.seiko.imageloader.ImageLoader
+import com.seiko.imageloader.ImageLoaderConfig
+import com.seiko.imageloader.model.ImageRequest
 import com.seiko.imageloader.rememberAsyncImagePainter
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -47,7 +55,7 @@ fun MovieListItem(
 
     Card(
         modifier = modifier
-            .height(220.dp)
+            .requiredHeight(320.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(8.dp),
     ){
@@ -67,7 +75,7 @@ fun MovieListItem(
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .clip(
                             RoundedCornerShape(
                                 bottomStart = 2.dp,
