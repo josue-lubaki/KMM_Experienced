@@ -1,6 +1,5 @@
 import java.util.Properties
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -28,7 +27,7 @@ kotlin {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         version = "1.0"
-        ios.deploymentTarget = "14.1"
+        ios.deploymentTarget = "16.0"
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "shared"
@@ -48,12 +47,9 @@ kotlin {
                 implementation(compose.components.resources)
                 api(compose.materialIconsExtended)
 
-//                implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
-
-//                implementation(libs.koin.core)
 
                 api(libs.image.loader)
                 api(libs.precompose)
@@ -116,6 +112,7 @@ buildkonfig {
 
     defaultConfigs {
         buildConfigField(STRING, "API_KEY", properties.getProperty("API_KEY"))
+        buildConfigField(STRING, "BASE_URL", properties.getProperty("BASE_URL"))
     }
 }
 
