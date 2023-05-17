@@ -1,20 +1,20 @@
 package ca.josue_lubaki.kmmexperiments.presentation.detail
 
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import ca.josue_lubaki.kmmexperiments.domain.model.Movie
 import ca.josue_lubaki.kmmexperiments.domain.usecases.GetMovieUseCase
+import ca.josue_lubaki.kmmexperiments.domain.usecases.GetMoviesUseCase
 import ca.josue_lubaki.kmmexperiments.util.network.DataState
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * created by Josue Lubaki
@@ -22,9 +22,10 @@ import moe.tlaster.precompose.viewmodel.viewModelScope
  * version : 1.0.0
  */
 
-class DetailViewModel(
-    val getMovieUseCase: GetMovieUseCase = GetMovieUseCase()
-) : ViewModel() {
+class DetailViewModel : ViewModel(), KoinComponent {
+
+    private val getMovieUseCase: GetMovieUseCase by inject()
+    private val dispatchers : CoroutineDispatcher by inject()
 
     private var _state = MutableStateFlow<DetailState>(DetailState.Idle)
     val state: StateFlow<DetailState> = _state.asStateFlow()
@@ -32,7 +33,7 @@ class DetailViewModel(
 
     fun loadMovie(movieId: Int) {
         _state.value = DetailState.Loading
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(dispatchers) {
             when(val result = getMovieUseCase(movieId)){
                 is DataState.Error -> {
                     _state.value = DetailState.Error(
@@ -43,7 +44,6 @@ class DetailViewModel(
                     _state.value = DetailState.Loading
                 }
                 is DataState.Success -> {
-                    println("DetailViewModel.loadMovie() -> ${result.data}")
                     movieDetails.value = result.data
                     _state.value = DetailState.Success(
                         movie = result.data

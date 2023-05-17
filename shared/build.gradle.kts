@@ -47,13 +47,23 @@ kotlin {
                 implementation(compose.components.resources)
                 api(compose.materialIconsExtended)
 
+                // ktor
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
 
+                // image
                 api(libs.image.loader)
+
+                // precompose - for viewmodel and navigation
                 api(libs.precompose)
                 api(libs.precompose.viewmodel)
+
+                // koin
+                api(libs.koin.core)
+
+                // coroutine core
+                implementation(libs.kotlinx.coroutines.core)
 
             }
         }
