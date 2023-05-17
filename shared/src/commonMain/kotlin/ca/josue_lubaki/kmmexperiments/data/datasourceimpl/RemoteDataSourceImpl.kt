@@ -17,11 +17,12 @@ import kotlinx.coroutines.withContext
  */
 
 internal class RemoteDataSourceImpl(
-    private val movieService: MovieService = MovieService()
+    private val movieService: MovieService,
+    private val dispatcher: CoroutineDispatcher
 ) : RemoteDataSource {
 
     override suspend fun getMovie(id: Int): MovieRemote {
-        return withContext(Dispatchers.Main) {
+        return withContext(dispatcher) {
             movieService.getMovie(id)
         }
     }

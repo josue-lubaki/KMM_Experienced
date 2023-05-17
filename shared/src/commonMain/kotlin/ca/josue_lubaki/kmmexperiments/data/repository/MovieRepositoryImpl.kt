@@ -6,6 +6,8 @@ import ca.josue_lubaki.kmmexperiments.data.mapper.toDomain
 import ca.josue_lubaki.kmmexperiments.domain.model.Movie
 import ca.josue_lubaki.kmmexperiments.domain.repository.MovieRepository
 import ca.josue_lubaki.kmmexperiments.util.network.DataState
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -16,7 +18,7 @@ import kotlinx.coroutines.flow.flow
  */
 
 internal class MovieRepositoryImpl(
-    private val remoteDataSource: RemoteDataSource = RemoteDataSourceImpl()
+    private val remoteDataSource: RemoteDataSource,
 ) : MovieRepository {
 
     override suspend fun getMovies(page: Int): Flow<DataState<List<Movie>>> = flow {

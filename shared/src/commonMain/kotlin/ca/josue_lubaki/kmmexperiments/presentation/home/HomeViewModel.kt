@@ -7,12 +7,16 @@ import ca.josue_lubaki.kmmexperiments.data.repository.MovieRepositoryImpl
 import ca.josue_lubaki.kmmexperiments.domain.model.Movie
 import ca.josue_lubaki.kmmexperiments.domain.usecases.GetMoviesUseCase
 import ca.josue_lubaki.kmmexperiments.util.network.DataState
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * created by Josue Lubaki
@@ -20,18 +24,19 @@ import moe.tlaster.precompose.viewmodel.ViewModel
  * version : 1.0.0
  */
 
-class HomeViewModel : ViewModel() {
-    var uiState by mutableStateOf(HomeState())
-    private val viewModelScope = CoroutineScope(Dispatchers.Main)
+class HomeViewModel : ViewModel(), KoinComponent {
+    private val getMoviesUseCase: GetMoviesUseCase by inject()
+    private val dispatchers : CoroutineDispatcher by inject()
+
     private var currentPage = 1
-    private val getMoviesUseCase: GetMoviesUseCase = GetMoviesUseCase()
+    var uiState by mutableStateOf(HomeState())
 
     fun loadMovies(forceReload: Boolean) {
         if(uiState.loading) return
         if(forceReload) currentPage = 1
         if(currentPage == 1) uiState = uiState.copy(refreshing = true)
 
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(dispatchers) {
             getMoviesUseCase(currentPage).collect {
                 when (it) {
                     is DataState.Error -> {
