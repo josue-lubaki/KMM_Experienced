@@ -4,6 +4,7 @@ import ca.josue_lubaki.kmmexperiments.data.datasource.RemoteDataSource
 import ca.josue_lubaki.kmmexperiments.data.datasourceimpl.RemoteDataSourceImpl
 import ca.josue_lubaki.kmmexperiments.data.mapper.toDomain
 import ca.josue_lubaki.kmmexperiments.domain.model.Movie
+import ca.josue_lubaki.kmmexperiments.domain.model.MovieVideo
 import ca.josue_lubaki.kmmexperiments.domain.repository.MovieRepository
 import ca.josue_lubaki.kmmexperiments.util.network.DataState
 import kotlinx.coroutines.CoroutineDispatcher
@@ -36,6 +37,15 @@ internal class MovieRepositoryImpl(
     override suspend fun getMovie(id: Int): DataState<Movie> {
         return try {
             val result = remoteDataSource.getMovie(id).toDomain()
+            DataState.Success(result)
+        } catch (e: Exception) {
+            DataState.Error(e)
+        }
+    }
+
+    override suspend fun getMovieVideos(id: Int): DataState<MovieVideo> {
+        return try {
+            val result = remoteDataSource.getMovieVideos(id).toDomain()
             DataState.Success(result)
         } catch (e: Exception) {
             DataState.Error(e)

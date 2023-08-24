@@ -2,6 +2,7 @@ package ca.josue_lubaki.kmmexperiments.data.datasource
 
 import ca.josue_lubaki.kmmexperiments.data.model.MovieApiResponse
 import ca.josue_lubaki.kmmexperiments.data.model.MovieRemote
+import ca.josue_lubaki.kmmexperiments.data.model.MovieVideoResponse
 
 /**
  * created by Josue Lubaki
@@ -12,4 +13,5 @@ import ca.josue_lubaki.kmmexperiments.data.model.MovieRemote
 internal interface RemoteDataSource {
     suspend fun getMovies(page: Int = 1) : MovieApiResponse
     suspend fun getMovie(id: Int) : MovieRemote
+    suspend fun getMovieVideos(id: Int) : MovieVideoResponse
 }

@@ -2,9 +2,11 @@ package ca.josue_lubaki.kmmexperiments.data.api
 
 import ca.josue_lubaki.kmmexperiments.data.model.MovieApiResponse
 import ca.josue_lubaki.kmmexperiments.data.model.MovieRemote
+import ca.josue_lubaki.kmmexperiments.data.model.MovieVideoResponse
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import kotlinx.coroutines.delay
 
 /**
  * created by Josue Lubaki
@@ -20,5 +22,10 @@ internal class MovieService : KtorApi() {
 
     suspend fun getMovie(id: Int) : MovieRemote = client.get {
         pathUrl("movie/$id")
+    }.body()
+
+    suspend fun getMovieVideos(id: Int) : MovieVideoResponse = client.get {
+        delay(1000)
+        pathUrl("movie/$id/videos")
     }.body()
 }

@@ -31,3 +31,17 @@ object Detail: Destination{
     override val routeWithArgs: String
         get() = "$route/{$argsName}"
 }
+
+object Lecture: Destination{
+    override val title: String
+        get() = "Youtube video"
+
+    override val route: String
+        get() = "lecture"
+
+    override val argsName: String
+        get() = "movieId"
+
+    override val routeWithArgs: String
+        get() = "$route/{$argsName}"
+}
