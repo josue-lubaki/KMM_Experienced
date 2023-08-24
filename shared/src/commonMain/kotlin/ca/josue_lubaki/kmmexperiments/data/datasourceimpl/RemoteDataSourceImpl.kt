@@ -4,6 +4,7 @@ import ca.josue_lubaki.kmmexperiments.data.api.MovieService
 import ca.josue_lubaki.kmmexperiments.data.datasource.RemoteDataSource
 import ca.josue_lubaki.kmmexperiments.data.model.MovieApiResponse
 import ca.josue_lubaki.kmmexperiments.data.model.MovieRemote
+import ca.josue_lubaki.kmmexperiments.data.model.MovieVideoResponse
 import io.ktor.util.logging.Logger
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,12 @@ internal class RemoteDataSourceImpl(
     override suspend fun getMovie(id: Int): MovieRemote {
         return withContext(dispatcher) {
             movieService.getMovie(id)
+        }
+    }
+
+    override suspend fun getMovieVideos(id: Int): MovieVideoResponse {
+        return withContext(dispatcher) {
+            movieService.getMovieVideos(id)
         }
     }
 

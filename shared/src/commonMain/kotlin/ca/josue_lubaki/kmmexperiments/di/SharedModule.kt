@@ -6,6 +6,7 @@ import ca.josue_lubaki.kmmexperiments.data.datasourceimpl.RemoteDataSourceImpl
 import ca.josue_lubaki.kmmexperiments.data.repository.MovieRepositoryImpl
 import ca.josue_lubaki.kmmexperiments.domain.repository.MovieRepository
 import ca.josue_lubaki.kmmexperiments.domain.usecases.GetMovieUseCase
+import ca.josue_lubaki.kmmexperiments.domain.usecases.GetMovieVideoUseCase
 import ca.josue_lubaki.kmmexperiments.domain.usecases.GetMoviesUseCase
 import ca.josue_lubaki.kmmexperiments.util.provideDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
@@ -31,6 +32,7 @@ private val domainModule = module {
 
     single { GetMoviesUseCase() }
     single { GetMovieUseCase() }
+    single { GetMovieVideoUseCase() }
 }
 
 private val _sharedModule = listOf(dataModule, utilityModule, domainModule)

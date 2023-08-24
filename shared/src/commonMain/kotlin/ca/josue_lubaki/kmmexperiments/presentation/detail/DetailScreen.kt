@@ -51,7 +51,8 @@ import org.jetbrains.compose.resources.painterResource
 fun DetailScreen(
     viewModel : DetailViewModel,
     modifier: Modifier = Modifier,
-    movieId : Int
+    movieId : Int,
+    onNavigateToLecture : (Int) -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -69,6 +70,9 @@ fun DetailScreen(
                 DetailContent(
                     movie = movie,
                     modifier = modifier,
+                    onClick = {
+                        onNavigateToLecture(movie.id)
+                    }
                 )
             }
 
@@ -93,7 +97,8 @@ fun DetailScreen(
 @Composable
 fun DetailContent(
     movie: Movie,
-    modifier: Modifier
+    modifier: Modifier,
+    onClick: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -138,7 +143,7 @@ fun DetailContent(
                     contentColor = Color.White
                 ),
                 elevation = ButtonDefaults.elevation(0.dp),
-                onClick = { /*TODO*/ }
+                onClick = { onClick() }
             ) {
                 Icon(
                     painter = painterResource("play_button.xml"),
