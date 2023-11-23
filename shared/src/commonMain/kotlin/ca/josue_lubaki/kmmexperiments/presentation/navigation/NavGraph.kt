@@ -67,7 +67,8 @@ fun NavGraph(
             val lectureViewModel = LectureViewModel()
             LectureScreen(
                 viewModel = lectureViewModel,
-                movieId = movieId
+                movieId = movieId,
+                navigator = navigator
             )
         }
     }

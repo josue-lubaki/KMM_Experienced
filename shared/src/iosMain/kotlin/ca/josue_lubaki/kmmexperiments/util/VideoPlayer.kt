@@ -28,13 +28,12 @@ import platform.UIKit.UIView
  */
 
 @Composable
-actual fun VideoPlayer(modifier: Modifier, url: String) {
+actual fun VideoPlayer(modifier: Modifier, url: String, onCompleted: () -> Unit) {
     val player = remember { AVPlayer(uRL = NSURL.URLWithString(url)!!) }
     val playerLayer = remember { AVPlayerLayer() }
     val avPlayerViewController = remember { AVPlayerViewController() }
     avPlayerViewController.player = player
     avPlayerViewController.showsPlaybackControls = false
-
 
     playerLayer.player = player
 

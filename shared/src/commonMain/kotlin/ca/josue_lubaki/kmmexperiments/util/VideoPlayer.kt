@@ -10,4 +10,4 @@ import androidx.compose.ui.Modifier
  */
 
 @Composable
-expect fun VideoPlayer(modifier: Modifier, url: String)
+expect fun VideoPlayer(modifier: Modifier, url: String, onCompleted : () -> Unit = {})

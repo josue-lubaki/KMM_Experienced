@@ -25,6 +25,7 @@ import ca.josue_lubaki.kmmexperiments.domain.model.MovieVideo
 import ca.josue_lubaki.kmmexperiments.util.VideoPlayer
 import ca.josue_lubaki.kmovies.android.ui.theme.Colors
 import kotlinx.coroutines.delay
+import moe.tlaster.precompose.navigation.Navigator
 
 /**
  * created by Josue Lubaki
@@ -34,11 +35,11 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun LectureScreen(
+    navigator : Navigator,
     viewModel : LectureViewModel,
     modifier: Modifier = Modifier,
     movieId : Int
 ) {
-
     val movieVideo = remember { viewModel.movieVideo }
     val error = remember { viewModel.error }
 
@@ -46,10 +47,15 @@ fun LectureScreen(
         viewModel.loadMovieVideo(movieId)
     }
 
+    val onCompleted = {
+        navigator.goBack()
+    }
+
     LectureContent(
         movie = movieVideo.value,
         error = error.value,
         modifier = modifier,
+        onCompleted
     )
 }
 
@@ -57,7 +63,8 @@ fun LectureScreen(
 fun LectureContent(
     movie: MovieVideo?,
     error : String?,
-    modifier: Modifier
+    modifier: Modifier,
+    onCompleted : () -> Unit
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -70,7 +77,8 @@ fun LectureContent(
                 modifier = Modifier
                     .fillMaxSize()
                     .aspectRatio(1f, false),
-                url = customVideo(movie.key)
+                url = customVideo(movie.key),
+                onCompleted
             )
         }
 

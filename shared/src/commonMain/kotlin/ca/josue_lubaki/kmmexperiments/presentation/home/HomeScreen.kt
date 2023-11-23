@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import ca.josue_lubaki.kmmexperiments.domain.model.Movie
 import ca.josue_lubaki.kmmexperiments.presentation.components.MovieListItem
 import ca.josue_lubaki.kmovies.android.ui.theme.Colors
+import kotlin.random.Random
 
 /**
  * created by Josue Lubaki
@@ -77,7 +78,6 @@ fun HomeScreen(
 
             itemsIndexed(
                 items = uiState.movies,
-                key = { _, movie -> movie.id }
             ) { index, movie ->
                 MovieListItem(
                     movie = movie,

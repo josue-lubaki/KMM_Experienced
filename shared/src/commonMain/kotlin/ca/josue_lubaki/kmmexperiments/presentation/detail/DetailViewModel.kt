@@ -45,6 +45,7 @@ class DetailViewModel : ViewModel(), KoinComponent {
                 }
                 is DataState.Success -> {
                     movieDetails.value = result.data
+                    println("xxxx : ${result.data}")
                     _state.value = DetailState.Success(
                         movie = result.data
                     )
